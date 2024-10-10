@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="Author" content="Jakub Krupicki" />
+  <link rel="stylesheet" href="../css/style.css">
+  <title>Największe budynki świata - JavaScript</title>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Language" content="pl" />
+  </head>
+<body onclick="startclock()">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Strona Główna</a></li>
+                <li><a href="about.html">O nas</a></li>
+                <li><a href="services.html">Usługi</a></li>
+                <li><a href="gallery.html">Galeria</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+                <li><a href="javascript.html">JavaScript</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+      <form method="post" name="background">
+        <input type="button" value="żółty" onclick="changeBackground('#FFFF00')">
+        <input type="button" value="czarny" onclick="changeBackground('#000000')">
+        <input type="button" value="biały" onclick="changeBackground('#FFFFFF')">
+        <input type="button" value="zielony" onclick="changeBackground('#00FF00')">
+        <input type="button" value="niebieski" onclick="changeBackground('#0000FF')">
+        <input type="button" value="pomarańczowy" onclick="changeBackground('#FF8000')">
+        <input type="button" value="szary" onclick="changeBackground('#C0C0C0')">
+        <input type="button" value="czerwony" onclick="changeBackground('#FF0000')">
+      </form>
+    </main>
+  <div id="zegarek"></div>
+  <div id="data"></div>
+  <footer>
+    <p>© 2024 Moja Strona Internetowa</p>
+  </footer>
+  <script src="../kolorujtlo.js"></script>
+  <script src="../timedata.js"></script>
+</body>
+</html>
