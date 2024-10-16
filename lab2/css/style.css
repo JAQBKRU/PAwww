@@ -12,7 +12,7 @@ body {
   margin: 0;
   line-height: 1.6;
   background-color: #F0EAD6;
-  color: #e0e0e0;
+  color: #333;
   font-family: Arial, sans-serif;
   height: 100%;
   display: flex;
@@ -155,6 +155,36 @@ form button {
 
 form button:hover {
   background-color: #E67E22;
+}
+
+#javascript_form{
+  float: left;
+}
+
+#javascript_form form, #javascript{
+  width: 300px;
+  float: left;
+}
+
+#javascript_block{
+  float: left;
+  margin: 20px;
+}
+
+#data{
+  width: 300px;
+  height: 200px;
+  padding: 20px;
+  margin: 20px;
+  margin: 20px;
+  background-color: #E67E22;
+  line-height: 160px;
+  text-align: center;
+}
+
+#zegarek{
+  width: 200px;
+  margin: 20px;
 }
 
 img {
