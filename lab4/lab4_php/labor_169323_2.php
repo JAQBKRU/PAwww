@@ -1,6 +1,6 @@
 <?php
 $nr_indeksu = "169323";
-$nr_grupy = "3";
+$nr_grupy = "2";
 
 echo "Jakub Krupicki".$nr_indeksu." grupa ".$nr_grupy."<br/><br/>";
 
