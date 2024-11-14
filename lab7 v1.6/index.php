@@ -38,6 +38,8 @@ if (isset($_GET['idp'])) {
   else $pageTitle = '404';
 
   $pageContent = PokazPodstrone($idp);
+}else{
+    $pageContent = PokazPodstrone(5);
 }
 
 
