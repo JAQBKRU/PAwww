@@ -78,7 +78,6 @@ function handleActionCategories($zarzadzajKategorie) {
 
 <!-- Content Area -->
 <div class="content">
-    <div class="container">
         <?php
             // Wyświetlanie produktów lub kategorii w zależności od akcji
             if (isset($_GET['action'])) {
@@ -105,8 +104,8 @@ function handleActionCategories($zarzadzajKategorie) {
                 
 
                 elseif ($_GET['action'] == 'add_subpage') {
-                    echo ListaPodstron();
                     echo DodajNowaPodstrone();
+                    //echo ListaPodstron();
                 }
 
                 if (isset($_GET['action']) == 'subpage' && isset($_GET['delete_subpage_id'])) {
@@ -134,7 +133,6 @@ function handleActionCategories($zarzadzajKategorie) {
                 echo "<p>Wybierz akcję w menu, aby zarządzać produktami lub kategoriami.</p>";
             }
         ?>
-    </div>
 </div>
 
 <footer>
@@ -178,6 +176,22 @@ function handleActionCategories($zarzadzajKategorie) {
             }
         });
     });
+    function pokazPodglad(input) {
+        const podglad = document.getElementById('current-img');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                podglad.src = e.target.result;
+                podglad.style.display = 'block'; // Pokaż obraz
+            };
+            reader.readAsDataURL(input.files[0]); // Odczytaj dane obrazu
+
+            // Wyświetlenie nazwy pliku
+        } else {
+            podglad.style.display = 'none'; // Ukryj obraz, jeśli nic nie wybrano
+        }
+    }
 </script>
 
 </body>
@@ -188,8 +202,8 @@ function ListaPodstron(){
     $qry = "SELECT * FROM page_list";
     $rsl = mysqli_query($link, $qry) or die(mysqli_error($link));
 
-    echo '<div class="subpage-list">';
-    echo '<h2>Lista Podstron</h2>';
+    echo '<div class="subpage-list" style="width: 33.33%; float: left;">';
+    echo '<h3>Lista Podstron</h3>';
 
     while($row = mysqli_fetch_array($rsl)){
         echo '
@@ -269,51 +283,72 @@ function EdytujPodstrone($id) {
 // Zwraca: void
 // Sposób działania: Funkcja umożliwia dodanie nowej podstrony do systemu, przyjmując dane formularza.
 function DodajNowaPodstrone(){
+    // Sprawdzanie danych w sesji
     $new_title = isset($_SESSION['title']) ? $_SESSION['title'] : '';
     $new_content = isset($_SESSION['content']) ? $_SESSION['content'] : '';
     $new_status = isset($_SESSION['status']) ? $_SESSION['status'] : 0;
+
+    
+    // Formularz dodawania nowej strony (2/3 szerokości)
     echo '
-    <div class="subpage_form">
-        <form method="POST" action="" style="width: 80%;">
+    <div class="subpage-form" style="width: 66.66%; float: left; padding-right: 20px;">
+        <form method="POST" action="">
             <h3>Formularz dodawania nowej podstrony</h3>
             <label for="title">Tytuł nowej strony:</label><br/>
-            <input type="text" id="title" name="title" value='.$new_title.'><br/><br/>
+            <input type="text" id="title" name="title" value="' . $new_title . '"><br/><br/>
             
             <label for="content">Treść nowej strony:</label><br/>
-            <textarea id="content" name="content" rows="10" cols="50">'.$new_content.'</textarea><br/><br/>
+            <textarea id="content" name="content" rows="10" cols="50">' . $new_content . '</textarea><br/><br/>
             
             <label for="status">Strona aktywna:</label>
-            <input type="checkbox" id="status" name="status"'. (isset($_SESSION['status']) && $_SESSION['status'] ? "checked" : "") .'><br/><br/>
+            <input type="checkbox" id="status" name="status" ' . (isset($_SESSION['status']) && $_SESSION['status'] ? "checked" : "") . '><br/><br/>
             
-            <input type="submit" name="add_subpage" value="Dodaj nowa podstrone">
+            <input type="submit" name="add_subpage" value="Dodaj nową podstronę">
         </form>
     </div>
     ';
-
+    
+    // Obsługa formularza po kliknięciu "Dodaj nową podstronę"
     if (isset($_POST['add_subpage'])) {
         $_SESSION['title'] = isset($_POST['title']) ? $_POST['title'] : '';
         $_SESSION['content'] = isset($_POST['content']) ? $_POST['content'] : '';
         $_SESSION['status'] = isset($_POST['status']) ? 1 : 0;
+
         if (!empty($_SESSION['title']) && !empty($_SESSION['content'])) {
+            // Przypisanie danych do zmiennych
             $new_title = $_SESSION['title'];
             $new_content = $_SESSION['content'];
             $new_status = $_SESSION['status'];
 
+            // Połączenie z bazą danych
             global $link;
             
             // Zapytanie SQL do dodania nowej podstrony
             $qry = "INSERT INTO page_list (page_title, page_content, status) VALUES ('$new_title', '$new_content', $new_status)";
             mysqli_query($link, $qry);
 
+            // Usunięcie danych z sesji, aby uniknąć ich ponownego przetwarzania
             unset($_SESSION['title']);
             unset($_SESSION['content']);
             unset($_SESSION['status']);
-            // Przekierowanie po dodaniu nowej podstrony
-            @header("Location: admin_panel.php?action=add_subpage");
-            exit();
+
+            // Przekierowanie do strony po dodaniu nowej podstrony
+            header("Location: panel_admina.php?action=add_subpage");
+            exit(); // Zakończenie dalszego wykonywania skryptu
         }
     }
+    
+    // Lista podstron (1/3 szerokości)
+    echo ListaPodstron();
+    
+
+    // Sprawdzanie, czy dodanie strony zakończyło się sukcesem
+    if (isset($_GET['success']) && $_GET['success'] == 1) {
+        echo '<p>Podstrona została dodana pomyślnie!</p>';
+    }
 }
+
+
 
 
 

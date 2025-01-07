@@ -232,13 +232,13 @@ class ZarzadzajProduktami {
                 <form action='' method='POST' enctype='multipart/form-data'>
                     <div class='form-group'>
                         <label for='product-title'>Tytuł</label>
-                        <input type='text' id='product-title' name='title' required placeholder='Wpisz tytuł produktu' value=". $product['tytul'].">
+                        <input type='text' id='product-title' name='title' required placeholder='Wpisz tytuł produktu' value='". htmlspecialchars($product['tytul'], ENT_QUOTES) ."'>
                     </div>
 
                     <div class='form-group'>
                     <label for='product-category'>Kategoria</label>
-                        <select id='product-category' name='category' required>
-                            <option selected value='".$product['kategoria']."'>". $product['kategoria_nazwa']."</option>
+                        <select id='product-category' name='category' <select id='product-category' name='category' required>
+                            <option selected value='". htmlspecialchars($product['kategoria'], ENT_QUOTES) ."'>". htmlspecialchars($product['kategoria_nazwa'], ENT_QUOTES) ."</option>
                             ".$opcje."
                         </select>
                     </div>
@@ -272,12 +272,25 @@ class ZarzadzajProduktami {
                     </div>
 
                     <div class='form-group'>
-                        <label for='product-image'>Zdjęcie</label>
-                        <input type='file' id='product-image' name='image'>
+                        <label for='product-modified-date'>Data modyfikacji</label>
+                        <input type='text' id='product-modified-date' name='modified_date' value='" . date('Y-m-d H:i:s', strtotime($product['data_modyfikacji'])) . "' readonly>
                     </div>
 
-                    <div class='actions'>
-                        <button type='submit' name='submit' class='save'>Dodaj</button>
+                    <div class='form-group'>
+                        <label for='product-expiry-date'>Data wygaśnięcia</label>
+                        <input type='date' id='product-expiry-date' name='expiry_date' value='". (isset($product['data_wygasniecia']) ? date('Y-m-d', strtotime($product['data_wygasniecia'])) : "") ."' required>
+                    </div>
+
+                    <div class='form-group'>
+                        <label for='product-image'>Zdjęcie</label>
+                        <input type='file' id='product-image' name='image' onchange='pokazPodglad(this);'>
+                        <div class='current-image' id='current-image' style='float: left;'>
+                            <img id='current-img' src='" . htmlspecialchars($product['zdjecie'], ENT_QUOTES) . "' alt='Aktualne zdjęcie produktu' style='max-height: 300px;'>
+                        </div>
+                    </div>
+
+                    <div class='actions' style='clear: both; padding-top: 10px;'>
+                        <button type='submit' name='submit' class='save'>Zapisz</button>
                         <button type='button' class='cancel' onclick='window.history.back();'>Anuluj</button>
                     </div>
                 </form>
@@ -287,14 +300,29 @@ class ZarzadzajProduktami {
                 // Pobierz dane z formularza
                 $tytul = $_POST['title'];
                 $opis = $_POST['description'];
+                $data_wygasniecia = $_POST['expiry_date'];
                 $cena_netto = $_POST['price'];
                 $vat = $_POST['vat'];
                 $ilosc = $_POST['quantity'];
                 $status = $_POST['status'];
                 $kategoria = $_POST['category'];
-                $zdjecie = $_FILES['image']['name'];
-
-                $this->EdytujProdukt($id, $tytul, $opis, $cena_netto, $vat, $ilosc, $status, $kategoria, "test_file");
+    
+                $zdjecie = $product['zdjecie']; // Domyślnie aktualne zdjęcie
+    
+                if (!empty($_FILES['image']['name'])) {
+                    $upload_dir = 'uploads/';
+                    $unique_id = uniqid();
+                    $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                    $new_filename = $upload_dir . $unique_id . "_" . basename($_FILES['image']['name'], '.' . $ext) . "." . $ext;
+    
+                    if (move_uploaded_file($_FILES['image']['tmp_name'], $new_filename)) {
+                        $zdjecie = $new_filename;
+                    } else {
+                        echo "<p class='error'>Nie udało się przesłać nowego pliku obrazu.</p>";
+                    }
+                }
+    
+                $this->EdytujProdukt($id, $tytul, $opis, $cena_netto, $vat, $ilosc, $status, $kategoria, $zdjecie, $data_wygasniecia);
             }
             
         } else {
@@ -302,15 +330,15 @@ class ZarzadzajProduktami {
         }
     }
     // Funkcja edytowania produktu
-    public function EdytujProdukt($id, $tytul, $opis, $cena_netto, $podatek_vat, $ilosc_magazyn, $status_dostepnosci, $kategoria, $zdjecie) {
+    public function EdytujProdukt($id, $tytul, $opis, $cena_netto, $podatek_vat, $ilosc_magazyn, $status_dostepnosci, $kategoria, $zdjecie, $data_wygasniecia) {
         // Przygotowanie zapytania do aktualizacji danych produktu w bazie
-        $qry = "UPDATE produkty SET tytul = ?, opis = ?, cena_netto = ?, podatek_vat = ?, ilosc_magazyn = ?, status_dostepnosci = ?, kategoria = ?, zdjecie = ? WHERE id = ?";
+        $qry = "UPDATE produkty SET tytul = ?, opis = ?, cena_netto = ?, podatek_vat = ?, ilosc_magazyn = ?, status_dostepnosci = ?, kategoria = ?, zdjecie = ?, data_wygasniecia = ? WHERE id = ?";
         
         // Przygotowanie zapytania
         $stmt = mysqli_prepare($this->link, $qry);
         
         // Bindowanie parametrów
-        mysqli_stmt_bind_param($stmt, "ssdiisssi", $tytul, $opis, $cena_netto, $podatek_vat, $ilosc_magazyn, $status_dostepnosci, $kategoria, $zdjecie, $id);
+        mysqli_stmt_bind_param($stmt, "ssdiissssi", $tytul, $opis, $cena_netto, $podatek_vat, $ilosc_magazyn, $status_dostepnosci, $kategoria, $zdjecie, $data_wygasniecia, $id);
         
         // Wykonanie zapytania
         if (mysqli_stmt_execute($stmt)) {

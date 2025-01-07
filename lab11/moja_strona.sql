@@ -28,26 +28,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `matka` int(11) NOT NULL DEFAULT 0,
-  `nazwa` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `matka` INT(11) NOT NULL DEFAULT 0,
+    `nazwa` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`)
+);
 
 --
 -- Zrzut danych tabeli `categories`
 --
 
-INSERT INTO `categories` (`id`, `matka`, `nazwa`) VALUES
-(1, 0, 'Kategoria A'),
-(2, 0, 'Kategoria B'),
-(3, 0, 'Kategoria C'),
-(4, 1, 'Podkategoria A1'),
-(5, 1, 'Podkategoria A2'),
-(6, 2, 'Podkategoria B1');
 
+-- Wstawienie głównych kategorii (matka = 0)
 INSERT INTO categories (id, matka, nazwa)
 VALUES
--- Główne kategorie
 (1, 0, 'Elektronika'),
 (2, 0, 'AGD'),
 (3, 0, 'Akcesoria'),
@@ -57,8 +51,11 @@ VALUES
 (7, 0, 'Meble'),
 (8, 0, 'Kuchnia'),
 (9, 0, 'Dom'),
-(10, 0, 'Ogród'),
+(10, 0, 'Ogród');
 
+-- Wstawienie podkategorii, po dodaniu głównych kategorii
+INSERT INTO categories (id, matka, nazwa)
+VALUES
 -- Podkategorie Elektronika
 (11, 1, 'Laptopy'),
 (12, 1, 'Smartfony'),
@@ -90,7 +87,7 @@ VALUES
 --
 
 CREATE TABLE `page_list` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `page_title` varchar(255) NOT NULL,
   `page_content` text NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1
@@ -108,47 +105,31 @@ INSERT INTO `page_list` (`id`, `page_title`, `page_content`, `status`) VALUES
 (5, 'about.html', '<section>\r\n    <h2>Nasza Misja</h2>\r\n    <p>\r\n        Pragniemy dostarczać rzetelne i aktualne informacje na temat najnowszych osiągnięć w architekturze na skalę globalną. \r\n        Od najwyższych wieżowców po innowacyjne konstrukcje przyszłości – chcemy inspirować zarówno miłośników architektury, \r\n        jak i osoby zawodowo związane z branżą budowlaną. Wierzymy, że edukacja w zakresie nowoczesnych rozwiązań architektonicznych \r\n        i technologii budowlanych może pomóc w lepszym zrozumieniu przyszłości naszych miast.\r\n    </p>\r\n</section>\r\n\r\n<section>\r\n    <h2>Nasza Historia</h2>\r\n    <p>\r\n        Nasza strona powstała z zamiłowania do wielkich projektów budowlanych i architektury. Zespół, który stoi za tą inicjatywą, \r\n        składa się z ekspertów i pasjonatów budownictwa oraz technologii. Nasze doświadczenie w badaniach oraz miłość do sztuki \r\n        konstrukcji pozwala nam dzielić się z Wami najnowszymi wiadomościami oraz analizami dotyczącymi światowych megastruktur.\r\n    </p>\r\n</section>\r\n\r\n<section>\r\n    <h2>Dlaczego warto nas śledzić?</h2>\r\n    <ul>\r\n        <li>Rzetelne informacje na temat najwyższych i najbardziej zaawansowanych technologicznie budynków na świecie.</li>\r\n        <li>Aktualizacje na temat nowych projektów architektonicznych i budowlanych.</li>\r\n        <li>Unikalne galerie zdjęć przedstawiające detale i piękno światowych megastruktur.</li>\r\n        <li>Porady i analizy dotyczące przyszłości urbanistyki i architektury.</li>\r\n    </ul>\r\n</section>\r\n', 1),
 (6, '404.html', '<div>\r\n    <h1>404 - Strona Nie Znaleziona</h1>\r\n    <p>Przepraszamy, ale strona, której szukasz, nie istnieje.</p>\r\n    <p>Możesz wrócić na <a href=\"index.php?idp=glowna\">stronę główną</a> lub sprawdzić inne sekcje.</p>\r\n</div>', 1),
 (7, 'jquery.html', '<div id=\"animacjaTestowa1\" class=\"test-block\">Kliknij, a się powiększę</div>\r\n<div id=\"animacjaTestowa2\" class=\"test-block\">Najedź kursorem, a się powiększę</div>\r\n<div id=\"animacjaTestowa3\" class=\"test-block\">Klikaj, abym urósł</div>\r\n<script>\r\n    $(\"#animacjaTestowa1\").on(\"click\", function() {\r\n        $(this).animate({\r\n            width: \"500px\",\r\n            opacity: 0.4,\r\n            fontSize: \"3em\",\r\n            borderWidth: \"10px\"\r\n        }, 1500);\r\n    });\r\n\r\n    $(\"#animacjaTestowa2\").on(\"mouseover\", function() {\r\n        $(this).animate({\r\n            width: 300\r\n        }, 800);\r\n    }).on(\"mouseout\", function() {\r\n        $(this).animate({\r\n            width: 200\r\n        }, 800);\r\n    });\r\n\r\n    $(\"#animacjaTestowa3\").on(\"click\", function() {\r\n        if (!$(this).is(\":animated\")) {\r\n            $(this).animate({\r\n                width: \"+=100\",\r\n                height: \"+=10\",\r\n                opacity: \"+=0.1\"\r\n            }, {\r\n                duration: 3000\r\n            });\r\n        }\r\n    });\r\n</script>', 1),
-(8, 'js.html', '<div id=\"javascript_form\">\r\n  <form method=\"post\" name=\"background\">\r\n      <input type=\"button\" value=\"żółty\" onclick=\"changeBackground(\'#FFFF00\')\">\r\n      <input type=\"button\" value=\"czarny\" onclick=\"changeBackground(\'#000000\')\">\r\n      <input type=\"button\" value=\"biały\" onclick=\"changeBackground(\'#FFFFFF\')\">\r\n      <input type=\"button\" value=\"zielony\" onclick=\"changeBackground(\'#00FF00\')\">\r\n      <input type=\"button\" value=\"niebieski\" onclick=\"changeBackground(\'#0000FF\')\">\r\n      <input type=\"button\" value=\"pomarańczowy\" onclick=\"changeBackground(\'#FF8000\')\">\r\n      <input type=\"button\" value=\"szary\" onclick=\"changeBackground(\'#C0C0C0\')\">\r\n      <input type=\"button\" value=\"czerwony\" onclick=\"changeBackground(\'#FF0000\')\">\r\n  </form>\r\n  \r\n  <div id=\"javascript\">\r\n      <div id=\"data\">Zmien kolor, klikajac na guzik</div>\r\n      <div id=\"zegarek\"></div>\r\n  </div>\r\n</div>\r\n', 1),
-(10, 'xDD', 'x1', 0);
-
---
--- Indeksy dla zrzutów tabel
---
-
---
--- Indeksy dla tabeli `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeksy dla tabeli `page_list`
---
-ALTER TABLE `page_list`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT dla zrzuconych tabel
---
-
---
--- AUTO_INCREMENT dla tabeli `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT dla tabeli `page_list`
---
-ALTER TABLE `page_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-COMMIT;
+(8, 'js.html', '<div id=\"javascript_form\">\r\n  <form method=\"post\" name=\"background\">\r\n      <input type=\"button\" value=\"żółty\" onclick=\"changeBackground(\'#FFFF00\')\">\r\n      <input type=\"button\" value=\"czarny\" onclick=\"changeBackground(\'#000000\')\">\r\n      <input type=\"button\" value=\"biały\" onclick=\"changeBackground(\'#FFFFFF\')\">\r\n      <input type=\"button\" value=\"zielony\" onclick=\"changeBackground(\'#00FF00\')\">\r\n      <input type=\"button\" value=\"niebieski\" onclick=\"changeBackground(\'#0000FF\')\">\r\n      <input type=\"button\" value=\"pomarańczowy\" onclick=\"changeBackground(\'#FF8000\')\">\r\n      <input type=\"button\" value=\"szary\" onclick=\"changeBackground(\'#C0C0C0\')\">\r\n      <input type=\"button\" value=\"czerwony\" onclick=\"changeBackground(\'#FF0000\')\">\r\n  </form>\r\n  \r\n  <div id=\"javascript\">\r\n      <div id=\"data\">Zmien kolor, klikajac na guzik</div>\r\n      <div id=\"zegarek\"></div>\r\n  </div>\r\n</div>\r\n', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-INSERT INTO produkty (tytul, opis, data_wygasniecia, cena_netto, podatek_vat, ilosc_magazyn, status_dostepnosci, kategoria, gabaryt_produktu, zdjecie)
+-- Tworzenie tabeli produktów
+CREATE TABLE `produkty` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `tytul` VARCHAR(255) NOT NULL,
+    `opis` TEXT,
+    `data_utworzenia` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `data_modyfikacji` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `data_wygasniecia` DATETIME,
+    `cena_netto` DECIMAL(10, 2) NOT NULL,
+    `podatek_vat` DECIMAL(5, 2) NOT NULL,
+    `ilosc_magazyn` INT NOT NULL,
+    `status_dostepnosci` BOOLEAN NOT NULL DEFAULT TRUE,
+    `gabaryt_produktu` VARCHAR(50),
+    `zdjecie` BLOB,
+    `kategoria_id` INT(11),
+    FOREIGN KEY (`kategoria_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+INSERT INTO produkty (tytul, opis, data_wygasniecia, cena_netto, podatek_vat, ilosc_magazyn, status_dostepnosci, kategoria_id, gabaryt_produktu, zdjecie)
 VALUES
 ('Laptop XYZ', 'Nowoczesny laptop z ekranem 15 cali.', '2025-12-31', 3500.00, 23.00, 10, TRUE, 11, 'Średni', NULL), -- Laptopy
 ('Telefon ABC', 'Smartfon z dużym wyświetlaczem.', '2024-12-31', 1200.00, 23.00, 5, TRUE, 12, 'Mały', NULL), -- Smartfony

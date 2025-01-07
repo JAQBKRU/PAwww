@@ -1,3 +1,4 @@
+/* Globalne style */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f3f4f6;
@@ -8,7 +9,7 @@ body {
     height: 100vh;
 }
 
-/* Sidebar */
+/* Sidebar - Panel boczny */
 .sidebar {
     width: 250px;
     background-color: #4caf50;
@@ -24,6 +25,7 @@ body {
     padding-bottom: 30px;
 }
 
+/* Menu w sidebarze */
 .admin-menu {
     display: flex;
     flex-direction: column;
@@ -60,7 +62,7 @@ body {
     display: block;
 }
 
-/* Content Area */
+/* Główna sekcja - Content */
 .content {
     flex-grow: 1;
     padding: 20px 20px 70px 20px;
@@ -68,6 +70,7 @@ body {
     overflow-y: auto;
 }
 
+/* Nagłówek strony */
 header {
     background-color: #fff;
     border-bottom: 2px solid #eee;
@@ -82,6 +85,7 @@ header h1 {
     color: #333;
 }
 
+/* Stopka */
 footer {
     text-align: center;
     padding: 10px;
@@ -97,7 +101,7 @@ footer p {
     font-size: 14px;
 }
 
-/* Media Queries for Responsiveness */
+/* Responsywność - dla urządzeń o szerokości maksymalnej 768px */
 @media (max-width: 768px) {
     body {
         flex-direction: column;
@@ -128,7 +132,7 @@ footer p {
     }
 }
 
-/* Mobile - Small Devices */
+/* Responsywność - dla urządzeń mobilnych */
 @media (max-width: 480px) {
     .menu-item {
         font-size: 14px;
@@ -144,7 +148,7 @@ footer p {
     }
 }
 
-/* Tabela i przyciski */
+/* Tabela produktów */
 .product-table {
     width: 100%;
     border-collapse: collapse;
@@ -176,11 +180,14 @@ footer p {
     background-color: #f1f1f1;
 }
 
+/* Akcje przy tabeli (przyciski edycji, usuwania) */
 .actions {
     display: flex;
     gap: 10px;
+    text-align: center;
 }
 
+/* Akcje (Przyciski edycji, usuwania) */
 .actions a {
     padding: 10px;
     border: none;
@@ -208,7 +215,7 @@ footer p {
     background-color: #c82333;
 }
 
-/* Ukryte wiersze */
+/* Ukryte wiersze i przycisk rozwijania */
 .hidden-row {
     display: none;
 }
@@ -220,9 +227,7 @@ footer p {
     text-decoration: underline;
 }
 
-
-
-/* add_product */
+/* Dodawanie produktu i kategorii */
 .add-product, .add-category {
     display: inline-block;
     margin-bottom: 20px;
@@ -241,8 +246,7 @@ footer p {
     background-color: #0056b3;
 }
 
-
-/* adding new product */
+/* Formularz dodawania nowego produktu */
 .form-group {
     margin-bottom: 15px;
 }
@@ -269,10 +273,7 @@ footer p {
     min-height: 100px;
 }
 
-.actions {
-    text-align: center;
-}
-
+/* Akcje w formularzu (Zapisz, Anuluj) */
 .actions button {
     padding: 10px 20px;
     font-size: 16px;
@@ -301,17 +302,7 @@ footer p {
     background-color: #e53935;
 }
 
-
-
-
-
-
-
-
-
-
-/* lista_kategorii */
-
+/* Lista kategorii */
 .category-list {
     list-style-type: none;
     padding: 0;
@@ -337,8 +328,8 @@ footer p {
     list-style-type: none;
     padding: 0;
     margin-left: 20px;
-    display: none; /* Ukryte podkategorie na początku */
-    margin-top: 10px; /* Dodajemy przerwę między kategorią a podkategoriami */
+    display: none;
+    margin-top: 10px;
 }
 
 .subcategory-item {
@@ -347,10 +338,10 @@ footer p {
     border: 1px solid #ddd;
     border-radius: 5px;
     margin: 5px 0;
-    display: block; /* Ustawiamy podkategorie w pionie */
+    display: block;
 }
 
-/* Przyciski */
+/* Przycisk rozwijania podkategorii */
 .expand-button {
     cursor: pointer;
     color: #007bff;
@@ -375,8 +366,7 @@ footer p {
     background-color: #c82333;
 }
 
-
-/* Style formularza kontaktowego */
+/* Formularz kontaktowy */
 .send_mail_form {
     max-width: 500px;
     margin: 20px auto;
@@ -387,6 +377,7 @@ footer p {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Nagłówek formularza kontaktowego */
 .form-header {
     font-size: 1.5rem;
     margin-bottom: 15px;
@@ -394,6 +385,7 @@ footer p {
     color: #f39c12;
 }
 
+/* Grupy formularzy w formularzu kontaktowym */
 .form-group {
     margin-bottom: 15px;
 }
@@ -405,6 +397,7 @@ footer p {
     color: #333;
 }
 
+/* Stylizacja dla pól formularza */
 .form-input, 
 .form-textarea {
     width: 100%;
@@ -416,6 +409,7 @@ footer p {
     transition: border-color 0.3s ease;
 }
 
+/* Aktywowanie fokusów w formularzu */
 .form-input:focus, 
 .form-textarea:focus {
     border-color: #f39c12;
@@ -423,10 +417,12 @@ footer p {
     background-color: #fff;
 }
 
+/* Stylizacja dla tekstarea w formularzu */
 .form-textarea {
     resize: none;
 }
 
+/* Informacje i komunikaty w formularzu */
 .form-info {
     font-size: 0.9rem;
     color: #a04747;
@@ -434,6 +430,7 @@ footer p {
     text-align: center;
 }
 
+/* Przyciski akcji w formularzu */
 .form-actions {
     display: flex;
     justify-content: space-between;
@@ -466,21 +463,21 @@ footer p {
     background-color: #95a5a6;
 }
 
-
-
-
-/* Stylizacja formularza edycji podstrony */
+/* Formularz edycji podstrony */
 .subpage-form {
-    width: 80%;
     max-width: 800px;
-    margin: 20px auto;
     padding: 20px;
+    margin-right: 20px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
+/* Nagłówek formularza edycji podstrony */
 .subpage-form h3 {
     text-align: center;
     margin-bottom: 20px;
@@ -489,17 +486,19 @@ footer p {
     font-weight: 600;
 }
 
+/* Etykiety formularza w edycji podstrony */
 .subpage-form label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
     color: #555;
+    text-align: left;
+    width: 100%;
 }
 
-.subpage-form input[type="checkbox"]{
-    padding: 40px;
-    height: 30px;
-    width: 30px;
+/* Inputy i textarea w formularzu edycji podstrony */
+.subpage-form input[type="checkbox"] {
+    margin-right: 8px;
 }
 
 .subpage-form input[type="text"],
@@ -513,23 +512,23 @@ footer p {
     color: #333;
     background-color: #fff;
     transition: border-color 0.3s ease;
+    box-sizing: border-box;
 }
 
+/* Fokus na inputach i textarea */
 .subpage-form input[type="text"]:focus,
 .subpage-form textarea:focus {
     border-color: #007bff;
     outline: none;
 }
 
+/* Dodatkowe ustawienia dla textarea w formularzu */
 .subpage-form textarea {
     resize: vertical;
-    min-height: 150px;
+    min-height: 300px;
 }
 
-.subpage-form input[type="checkbox"] {
-    margin-right: 8px;
-}
-
+/* Przycisk zapisz w formularzu edycji */
 .subpage-form .btn-save {
     display: block;
     width: 100%;
@@ -542,6 +541,7 @@ footer p {
     cursor: pointer;
     text-align: center;
     transition: background-color 0.3s ease;
+    box-sizing: border-box;
 }
 
 .subpage-form .btn-save:hover {
@@ -552,7 +552,8 @@ footer p {
     outline: none;
 }
 
-/* Dodanie responsywności */
+
+/* Responsywność */
 @media (max-width: 768px) {
     .subpage-form {
         width: 90%;
@@ -572,88 +573,118 @@ footer p {
         font-size: 0.9rem;
         padding: 10px;
     }
+
+    /* Responsywność dla kontenera z listą podstron */
+    .subpage-list {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .subpage-item {
+        font-size: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .subpage-item span {
+        margin-bottom: 10px;
+    }
+
+    .subpage-item .subpage-actions {
+        margin-left: 0;
+        justify-content: flex-start;
+    }
+
+    .subpage-item .btn {
+        font-size: 0.9rem;
+        padding: 8px 14px;
+    }
 }
 
+/* Responsywność dla bardzo małych ekranów */
+@media (max-width: 480px) {
+    .subpage-item {
+        padding: 10px 15px;
+    }
 
+    .subpage-item span {
+        font-size: 1rem;
+    }
 
+    .subpage-item .btn {
+        font-size: 0.85rem;
+        padding: 7px 12px;
+    }
+
+    /* Responsywność dla formularza */
+    .subpage_form {
+        width: 90%;
+    }
+}
 
 /* Stylizacja kontenera z listą podstron */
 .subpage-list {
     width: 80%;
     max-width: 900px;
-    margin: 30px auto;
     padding: 20px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    float: right;
 }
 
-.subpage-list h2 {
+.subpage-list h3 {
     text-align: center;
-    margin-bottom: 20px;
     color: #333;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 600;
+    margin: 24px 0 20px;
 }
 
 /* Stylizacja każdego elementu listy podstron */
 .subpage-item {
-    padding: 12px 20px; /* Zmniejszenie paddingu dla lepszej przestrzeni */
-    margin-bottom: 15px; /* Większa odległość między elementami */
-    background-color: #fafafa; /* Subtelnie jaśniejszy kolor tła */
-    border: 1px solid #e0e0e0; /* Jaśniejsza granica */
-    border-radius: 10px; /* Większe zaokrąglenie rogów */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtelne cieniowanie */
-    transition: transform 0.2s ease-in-out; /* Dodanie efektu hover */
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .subpage-item:hover {
-    transform: translateY(-5px); /* Delikatny efekt unoszenia się na hover */
+    transform: translateY(-5px);
 }
 
 /* Stylizacja tytułu i ID podstrony */
 .subpage-item span {
-    font-size: 1.1rem; /* Zwiększenie czcionki */
-    color: #444; /* Ciemniejszy kolor tekstu */
-    font-weight: bold; /* Pogrubienie tekstu ID */
+    color: #444;
     margin-right: 20px;
-    display: inline-block;
 }
 
 /* Stylizacja akcji (przyciski) */
 .subpage-item .subpage-actions {
     display: flex;
-    gap: 12px; /* Większa przestrzeń między przyciskami */
+    gap: 12px;
+    margin-left: auto;
+    flex-wrap: wrap;
     justify-content: flex-end;
 }
 
-/* Stylizacja przycisków edytuj i usuń */
+/* Stylizacja przycisków */
 .subpage-item .btn {
     display: inline-block;
-    padding: 10px 18px; /* Zwiększenie paddingu dla lepszego wyglądu */
-    font-size: 1rem; /* Nieco większa czcionka */
+    padding: 10px 18px;
+    font-size: 1rem;
     text-decoration: none;
-    border-radius: 6px; /* Zaokrąglone rogi */
+    border-radius: 6px;
     cursor: pointer;
     text-align: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-/* Stylizacja przycisku edytuj */
-.subpage-item .btn-edit {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-}
-
-.subpage-item .btn-edit:hover {
-    background-color: #2980b9; /* Zmiana koloru na ciemniejszy niebieski */
-    transform: translateY(-2px); /* Delikatny efekt unoszenia */
-}
-
-.subpage-item .btn-edit:focus {
-    outline: none;
 }
 
 /* Stylizacja przycisku usuń */
@@ -664,37 +695,31 @@ footer p {
 }
 
 .subpage-item .btn-del:hover {
-    background-color: #c0392b; /* Zmiana koloru na ciemniejszy czerwony */
-    transform: translateY(-2px); /* Delikatny efekt unoszenia */
+    background-color: #c0392b;
+    transform: translateY(-2px);
 }
 
 .subpage-item .btn-del:focus {
     outline: none;
 }
 
-/* Responsywność */
-@media (max-width: 768px) {
-    .subpage-list {
-        width: 90%; /* Zmniejszenie szerokości listy */
-        margin: 0 auto; /* Wyśrodkowanie listy */
-    }
-
-    .subpage-item {
-        font-size: 1rem; /* Zmniejszenie czcionki w mniejszych ekranach */
-    }
-
-    .subpage-item .btn {
-        font-size: 0.9rem; /* Zmniejszenie czcionki przycisków */
-        padding: 8px 14px; /* Zmniejszenie paddingu przycisków */
-    }
+/* Stylizacja przycisku edytuj */
+.subpage-item .btn-edit {
+    background-color: #ffc107;
+    color: white;
+    border: none;
 }
 
+.subpage-item .btn-edit:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+}
 
+.subpage-item .btn-edit:focus {
+    outline: none;
+}
 
-
-
-
-/* Stylizacja kontenera formularza */
+/* Stylizacja formularza */
 .subpage_form {
     width: 80%;
     max-width: 900px;
@@ -761,9 +786,21 @@ footer p {
     background-color: #0056b3;
 }
 
-/* Responsywność */
+/* Stylizacja obrazków */
+img {
+    max-width: 100%;
+    max-height: 500px;
+    width: auto;
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 5px;
+    background-color: #f9f9f9;
+    display: block;
+}
+
+/* Responsywność dla szerokości 768px */
 @media (max-width: 768px) {
-    .subpage_form {
-        width: 90%;
+    .subpage-form, .subpage-list {
+        width: 48%;
     }
 }
