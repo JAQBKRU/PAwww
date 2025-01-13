@@ -1,0 +1,48 @@
+<div id="javascript_form">
+  <form method="post" name="background">
+      <input type="button" value="Żółty" onclick="changeBackground('#FFFF00')" class="color-button">
+      <input type="button" value="Czarny" onclick="changeBackground('#000000')" class="color-button">
+      <input type="button" value="Biały" onclick="changeBackground('#FFFFFF')" class="color-button">
+      <input type="button" value="Zielony" onclick="changeBackground('#00FF00')" class="color-button">
+      <input type="button" value="Niebieski" onclick="changeBackground('#0000FF')" class="color-button">
+      <input type="button" value="Pomarańczowy" onclick="changeBackground('#FF8000')" class="color-button">
+      <input type="button" value="Szary" onclick="changeBackground('#C0C0C0')" class="color-button">
+      <input type="button" value="Czerwony" onclick="changeBackground('#FF0000')" class="color-button">
+  </form>
+  
+  <div id="javascript">
+      <div id="data">Zmień kolor, klikając na guzik</div>
+      <div id="zegarek"></div>
+  </div>
+</div>
+
+<style>
+  .color-button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .color-button:hover {
+    transform: scale(1.02);
+    background-color: #4caf50;
+  }
+
+  #data {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    border: 1px solid black;
+  }
+</style>
+
+<script>
+  function changeBackground(color) {
+    document.body.style.backgroundColor = color;
+  }
+</script>
