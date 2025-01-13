@@ -162,7 +162,7 @@ class ZarzadzajProduktami {
     public function PokazProdukty() {
         $qry = "SELECT produkty.*, categories.nazwa 
                 FROM produkty
-                LEFT JOIN categories ON categories.id = produkty.kategoria
+                LEFT JOIN categories ON categories.id = produkty.kategoria_id
                 ORDER BY produkty.id;";
         $result = mysqli_query($this->link, $qry);
 
@@ -217,7 +217,7 @@ class ZarzadzajProduktami {
         $qry = "SELECT produkty.*, categories.nazwa AS kategoria_nazwa 
         FROM produkty 
         INNER JOIN categories 
-        ON produkty.kategoria = categories.id 
+        ON produkty.kategoria_id = categories.id 
         WHERE produkty.id = $id";
 
         $result = mysqli_query($this->link, $qry);
@@ -238,7 +238,7 @@ class ZarzadzajProduktami {
                     <div class='form-group'>
                     <label for='product-category'>Kategoria</label>
                         <select id='product-category' name='category' <select id='product-category' name='category' required>
-                            <option selected value='". htmlspecialchars($product['kategoria'], ENT_QUOTES) ."'>". htmlspecialchars($product['kategoria_nazwa'], ENT_QUOTES) ."</option>
+                            <option selected value='". htmlspecialchars($product['kategoria_id'], ENT_QUOTES) ."'>". htmlspecialchars($product['kategoria_nazwa'], ENT_QUOTES) ."</option>
                             ".$opcje."
                         </select>
                     </div>
@@ -332,7 +332,7 @@ class ZarzadzajProduktami {
     // Funkcja edytowania produktu
     public function EdytujProdukt($id, $tytul, $opis, $cena_netto, $podatek_vat, $ilosc_magazyn, $status_dostepnosci, $kategoria, $zdjecie, $data_wygasniecia) {
         // Przygotowanie zapytania do aktualizacji danych produktu w bazie
-        $qry = "UPDATE produkty SET tytul = ?, opis = ?, cena_netto = ?, podatek_vat = ?, ilosc_magazyn = ?, status_dostepnosci = ?, kategoria = ?, zdjecie = ?, data_wygasniecia = ? WHERE id = ?";
+        $qry = "UPDATE produkty SET tytul = ?, opis = ?, cena_netto = ?, podatek_vat = ?, ilosc_magazyn = ?, status_dostepnosci = ?, kategoria_id = ?, zdjecie = ?, data_wygasniecia = ? WHERE id = ?";
         
         // Przygotowanie zapytania
         $stmt = mysqli_prepare($this->link, $qry);

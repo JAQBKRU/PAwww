@@ -1,0 +1,96 @@
+<div id="animacjaTestowa1" class="test-block">Kliknij, a się powiększę</div>
+<div id="animacjaTestowa2" class="test-block">Najedź kursorem, a się powiększę</div>
+<div id="animacjaTestowa3" class="test-block">Klikaj, abym urósł</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    .test-block {
+        width: 80%;
+        max-width: 400px;
+        height: 50px;
+        margin: 20px auto;
+        text-align: center;
+        line-height: 50px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 1.2em;
+        border: 2px solid #388E3C;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .test-block:hover {
+        background-color: #45a049;
+    }
+
+    @media (max-width: 600px) {
+        .test-block {
+            font-size: 1em;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .test-block {
+            font-size: 0.9em;
+            height: 35px;
+        }
+    }
+</style>
+
+<script>
+    $("#animacjaTestowa1").on("click", function() {
+        var isEnlarged = $(this).data("enlarged");
+        
+        if (isEnlarged) {
+            $(this).animate({
+                width: "80%",
+                fontSize: "1.2em",
+                borderWidth: "2px",
+                opacity: 1
+            }, 1000).css("background-color", "#4CAF50");
+            $(this).data("enlarged", false);
+        } else {
+            $(this).animate({
+                width: "90%",
+                fontSize: "2.5em",
+                borderWidth: "5px",
+                opacity: 0.7
+            }, 1000).css("background-color", "#FF9800");
+            $(this).data("enlarged", true);
+        }
+    });
+
+    $("#animacjaTestowa2").on("mouseover", function() {
+        $(this).animate({
+            width: "90%",
+            fontSize: "1.5em"
+        }, 500);
+    }).on("mouseout", function() {
+        $(this).animate({
+            width: "80%",
+            fontSize: "1.2em"
+        }, 500);
+    });
+
+    $("#animacjaTestowa3").on("click", function() {
+        var isEnlarged = $(this).data("enlarged");
+        
+        if (isEnlarged) {
+            $(this).animate({
+                width: "80%",
+                height: "50px",
+                opacity: 1
+            }, 1000).css("background-color", "#4CAF50");
+            $(this).data("enlarged", false);
+        } else {
+            $(this).animate({
+                width: "90%",
+                height: "70px",
+                opacity: 0.8
+            }, 1000).css("background-color", "#2196F3");
+            $(this).data("enlarged", true);
+        }
+    });
+</script>

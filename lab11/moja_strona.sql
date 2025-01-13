@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 05 Gru 2024, 23:02
+-- Czas generowania: 09 Sty 2025, 00:17
 -- Wersja serwera: 10.4.27-MariaDB
 -- Wersja PHP: 8.2.0
 
@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `moja_strona`
 --
-
+CREATE DATABASE moja_strona;
+use moja_strona;
 -- --------------------------------------------------------
 
 --
@@ -28,20 +29,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categories` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `matka` INT(11) NOT NULL DEFAULT 0,
-    `nazwa` VARCHAR(255) NOT NULL,
-    PRIMARY KEY (`id`)
-);
+  `id` int(11) NOT NULL,
+  `matka` int(11) NOT NULL DEFAULT 0,
+  `nazwa` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Zrzut danych tabeli `categories`
 --
 
-
--- Wstawienie głównych kategorii (matka = 0)
-INSERT INTO categories (id, matka, nazwa)
-VALUES
+INSERT INTO `categories` (`id`, `matka`, `nazwa`) VALUES
 (1, 0, 'Elektronika'),
 (2, 0, 'AGD'),
 (3, 0, 'Akcesoria'),
@@ -51,34 +48,50 @@ VALUES
 (7, 0, 'Meble'),
 (8, 0, 'Kuchnia'),
 (9, 0, 'Dom'),
-(10, 0, 'Ogród');
-
--- Wstawienie podkategorii, po dodaniu głównych kategorii
-INSERT INTO categories (id, matka, nazwa)
-VALUES
--- Podkategorie Elektronika
+(10, 0, 'Ogród'),
 (11, 1, 'Laptopy'),
 (12, 1, 'Smartfony'),
 (13, 1, 'Kamery'),
-
--- Podkategorie AGD
-(14, 2, 'Pralki'),
-(15, 2, 'Mikrofalówki'),
-(16, 2, 'Suszarki'),
-(17, 2, 'Tostery'),
-(18, 2, 'Blendery'),
-
--- Podkategorie Akcesoria
-(19, 3, 'Zegarki'),
-
--- Podkategorie Meble
-(20, 7, 'Biurka'),
-(21, 7, 'Krzesła'),
-(22, 7, 'Szafy'),
-
--- Podkategorie Dom
-(23, 9, 'Oświetlenie'),
-(24, 9, 'Tekstylia');
+(14, 11, 'Ultrabooki'),
+(15, 11, 'Gamingowe'),
+(16, 11, 'Biznesowe'),
+(17, 12, 'iOS'),
+(18, 12, 'Android'),
+(19, 2, 'Pralki'),
+(20, 2, 'Mikrofalówki'),
+(21, 2, 'Suszarki'),
+(22, 2, 'Tostery'),
+(23, 2, 'Blendery'),
+(24, 3, 'Zegarki'),
+(25, 3, 'Torby'),
+(26, 3, 'Ładowarki'),
+(27, 3, 'Pokrowce'),
+(28, 7, 'Biurka'),
+(29, 7, 'Krzesła'),
+(30, 7, 'Szafy'),
+(31, 28, 'Gamingowe Biurka'),
+(32, 28, 'Biurka Regulowane'),
+(33, 29, 'Fotele Gamingowe'),
+(34, 29, 'Krzesła Biurowe'),
+(35, 9, 'Oświetlenie'),
+(36, 9, 'Tekstylia'),
+(37, 9, 'Dywany'),
+(38, 9, 'Poduszki'),
+(39, 10, 'Narzędzia Ogrodowe'),
+(40, 10, 'Rośliny'),
+(41, 10, 'Grille'),
+(42, 5, 'Piłka Nożna'),
+(43, 5, 'Fitness'),
+(44, 5, 'Rowery'),
+(45, 5, 'Tenis'),
+(46, 42, 'Buty Piłkarskie'),
+(47, 42, 'Koszulki Drużynowe'),
+(48, 43, 'Mata do Ćwiczeń'),
+(49, 43, 'Hantle'),
+(50, 43, 'Skakanki'),
+(51, 44, 'Rowery Górskie'),
+(52, 44, 'Rowery Szosowe'),
+(53, 44, 'Akcesoria Rowerowe');
 
 -- --------------------------------------------------------
 
@@ -87,7 +100,7 @@ VALUES
 --
 
 CREATE TABLE `page_list` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` int(11) NOT NULL,
   `page_title` varchar(255) NOT NULL,
   `page_content` text NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1
@@ -105,49 +118,107 @@ INSERT INTO `page_list` (`id`, `page_title`, `page_content`, `status`) VALUES
 (5, 'about.html', '<section>\r\n    <h2>Nasza Misja</h2>\r\n    <p>\r\n        Pragniemy dostarczać rzetelne i aktualne informacje na temat najnowszych osiągnięć w architekturze na skalę globalną. \r\n        Od najwyższych wieżowców po innowacyjne konstrukcje przyszłości – chcemy inspirować zarówno miłośników architektury, \r\n        jak i osoby zawodowo związane z branżą budowlaną. Wierzymy, że edukacja w zakresie nowoczesnych rozwiązań architektonicznych \r\n        i technologii budowlanych może pomóc w lepszym zrozumieniu przyszłości naszych miast.\r\n    </p>\r\n</section>\r\n\r\n<section>\r\n    <h2>Nasza Historia</h2>\r\n    <p>\r\n        Nasza strona powstała z zamiłowania do wielkich projektów budowlanych i architektury. Zespół, który stoi za tą inicjatywą, \r\n        składa się z ekspertów i pasjonatów budownictwa oraz technologii. Nasze doświadczenie w badaniach oraz miłość do sztuki \r\n        konstrukcji pozwala nam dzielić się z Wami najnowszymi wiadomościami oraz analizami dotyczącymi światowych megastruktur.\r\n    </p>\r\n</section>\r\n\r\n<section>\r\n    <h2>Dlaczego warto nas śledzić?</h2>\r\n    <ul>\r\n        <li>Rzetelne informacje na temat najwyższych i najbardziej zaawansowanych technologicznie budynków na świecie.</li>\r\n        <li>Aktualizacje na temat nowych projektów architektonicznych i budowlanych.</li>\r\n        <li>Unikalne galerie zdjęć przedstawiające detale i piękno światowych megastruktur.</li>\r\n        <li>Porady i analizy dotyczące przyszłości urbanistyki i architektury.</li>\r\n    </ul>\r\n</section>\r\n', 1),
 (6, '404.html', '<div>\r\n    <h1>404 - Strona Nie Znaleziona</h1>\r\n    <p>Przepraszamy, ale strona, której szukasz, nie istnieje.</p>\r\n    <p>Możesz wrócić na <a href=\"index.php?idp=glowna\">stronę główną</a> lub sprawdzić inne sekcje.</p>\r\n</div>', 1),
 (7, 'jquery.html', '<div id=\"animacjaTestowa1\" class=\"test-block\">Kliknij, a się powiększę</div>\r\n<div id=\"animacjaTestowa2\" class=\"test-block\">Najedź kursorem, a się powiększę</div>\r\n<div id=\"animacjaTestowa3\" class=\"test-block\">Klikaj, abym urósł</div>\r\n<script>\r\n    $(\"#animacjaTestowa1\").on(\"click\", function() {\r\n        $(this).animate({\r\n            width: \"500px\",\r\n            opacity: 0.4,\r\n            fontSize: \"3em\",\r\n            borderWidth: \"10px\"\r\n        }, 1500);\r\n    });\r\n\r\n    $(\"#animacjaTestowa2\").on(\"mouseover\", function() {\r\n        $(this).animate({\r\n            width: 300\r\n        }, 800);\r\n    }).on(\"mouseout\", function() {\r\n        $(this).animate({\r\n            width: 200\r\n        }, 800);\r\n    });\r\n\r\n    $(\"#animacjaTestowa3\").on(\"click\", function() {\r\n        if (!$(this).is(\":animated\")) {\r\n            $(this).animate({\r\n                width: \"+=100\",\r\n                height: \"+=10\",\r\n                opacity: \"+=0.1\"\r\n            }, {\r\n                duration: 3000\r\n            });\r\n        }\r\n    });\r\n</script>', 1),
-(8, 'js.html', '<div id=\"javascript_form\">\r\n  <form method=\"post\" name=\"background\">\r\n      <input type=\"button\" value=\"żółty\" onclick=\"changeBackground(\'#FFFF00\')\">\r\n      <input type=\"button\" value=\"czarny\" onclick=\"changeBackground(\'#000000\')\">\r\n      <input type=\"button\" value=\"biały\" onclick=\"changeBackground(\'#FFFFFF\')\">\r\n      <input type=\"button\" value=\"zielony\" onclick=\"changeBackground(\'#00FF00\')\">\r\n      <input type=\"button\" value=\"niebieski\" onclick=\"changeBackground(\'#0000FF\')\">\r\n      <input type=\"button\" value=\"pomarańczowy\" onclick=\"changeBackground(\'#FF8000\')\">\r\n      <input type=\"button\" value=\"szary\" onclick=\"changeBackground(\'#C0C0C0\')\">\r\n      <input type=\"button\" value=\"czerwony\" onclick=\"changeBackground(\'#FF0000\')\">\r\n  </form>\r\n  \r\n  <div id=\"javascript\">\r\n      <div id=\"data\">Zmien kolor, klikajac na guzik</div>\r\n      <div id=\"zegarek\"></div>\r\n  </div>\r\n</div>\r\n', 1);
+(8, 'js.html', '<div id=\"javascript_form\">\r\n  <form method=\"post\" name=\"background\">\r\n      <input type=\"button\" value=\"żółty\" onclick=\"changeBackground(\'#FFFF00\')\">\r\n      <input type=\"button\" value=\"czarny\" onclick=\"changeBackground(\'#000000\')\">\r\n      <input type=\"button\" value=\"biały\" onclick=\"changeBackground(\'#FFFFFF\')\">\r\n      <input type=\"button\" value=\"zielony\" onclick=\"changeBackground(\'#00FF00\')\">\r\n      <input type=\"button\" value=\"niebieski\" onclick=\"changeBackground(\'#0000FF\')\">\r\n      <input type=\"button\" value=\"pomarańczowy\" onclick=\"changeBackground(\'#FF8000\')\">\r\n      <input type=\"button\" value=\"szary\" onclick=\"changeBackground(\'#C0C0C0\')\">\r\n      <input type=\"button\" value=\"czerwony\" onclick=\"changeBackground(\'#FF0000\')\">\r\n  </form>\r\n  \r\n  <div id=\"javascript\">\r\n      <div id=\"data\">Zmien kolor, klikajac na guzik</div>\r\n      <div id=\"zegarek\"></div>\r\n  </div>\r\n</div>\r\n', 1),
+(9, 'services.html', '<h2>Nasze Usługi</h2>\r\n<p>Oferujemy szeroki zakres usług związanych z architekturą i budownictwem. Poniżej znajdują się szczegóły dotyczące naszych najpopularniejszych usług:</p>\r\n<table>\r\n    <tr>\r\n        <th>Usługa</th>\r\n        <th>Opis</th>\r\n    </tr>\r\n    <tr>\r\n        <td>Projektowanie architektoniczne</td>\r\n        <td>Tworzenie nowoczesnych i estetycznych projektów budynków, które spełniają potrzeby funkcjonalne klientów.</td>\r\n    </tr>\r\n    <tr>\r\n        <td>Consulting budowlany</td>\r\n        <td>Profesjonalne doradztwo w zakresie planowania, optymalizacji kosztów i terminów budowy.</td>\r\n    </tr>\r\n    <tr>\r\n        <td>Zarządzanie projektem</td>\r\n        <td>Kompleksowe zarządzanie procesem budowlanym, od koncepcji po realizację projektu.</td>\r\n    </tr>\r\n    <tr>\r\n        <td>Analiza lokalizacji</td>\r\n        <td>Badania i ocena najlepszych lokalizacji dla inwestycji budowlanych, uwzględniając otoczenie i dostępność infrastruktury.</td>\r\n    </tr>\r\n    <tr>\r\n        <td>Rewitalizacja budynków</td>\r\n        <td>Modernizacja i adaptacja istniejących obiektów do współczesnych standardów użytkowych i estetycznych.</td>\r\n    </tr>\r\n</table>\r\n\r\n<p>Skontaktuj się z nami, aby uzyskać więcej informacji na temat naszych usług oraz jak możemy Ci pomóc w Twoim projekcie budowlanym!</p>\r\n\r\n<table>\r\n    <tr>\r\n        <th>Usługa</th>\r\n        <th>Opis</th>\r\n    </tr>\r\n    <tr>\r\n        <td>Nadzór budowlany</td>\r\n        <td>Monitorowanie postępu prac budowlanych, zapewnienie zgodności z projektem oraz normami bezpieczeństwa.</td>\r\n    </tr>\r\n    <tr>\r\n        <td>Konsultacje w zakresie zrównoważonego budownictwa</td>\r\n        <td>Pomoc w projektowaniu i budowie ekologicznych, energooszczędnych budynków z uwzględnieniem nowoczesnych technologii.</td>\r\n    </tr>\r\n    <tr>\r\n        <td>Audyt budowlany</td>\r\n        <td>Ocena jakości wykonania prac budowlanych, analizowanie ryzyk oraz zgodności z regulacjami prawnymi.</td>\r\n    </tr>\r\n    <tr>\r\n        <td>Adaptacja wnętrz</td>\r\n        <td>Przekształcanie istniejących przestrzeni wewnętrznych, dostosowując je do nowych funkcji i estetyki.</td>\r\n    </tr>\r\n    <tr>\r\n        <td>Planowanie infrastruktury</td>\r\n        <td>Kompleksowe planowanie infrastruktury technicznej oraz instalacji wewnętrznych budynku.</td>\r\n    </tr>\r\n</table>', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `produkty`
+--
+
+CREATE TABLE `produkty` (
+  `id` int(11) NOT NULL,
+  `tytul` varchar(255) NOT NULL,
+  `opis` text DEFAULT NULL,
+  `data_utworzenia` datetime DEFAULT current_timestamp(),
+  `data_modyfikacji` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `data_wygasniecia` datetime DEFAULT NULL,
+  `cena_netto` decimal(10,2) NOT NULL,
+  `podatek_vat` decimal(5,2) NOT NULL,
+  `ilosc_magazyn` int(11) NOT NULL,
+  `status_dostepnosci` tinyint(1) NOT NULL DEFAULT 1,
+  `gabaryt_produktu` varchar(50) DEFAULT NULL,
+  `zdjecie` blob DEFAULT NULL,
+  `kategoria_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Zrzut danych tabeli `produkty`
+--
+
+INSERT INTO `produkty` (`id`, `tytul`, `opis`, `data_utworzenia`, `data_modyfikacji`, `data_wygasniecia`, `cena_netto`, `podatek_vat`, `ilosc_magazyn`, `status_dostepnosci`, `gabaryt_produktu`, `zdjecie`, `kategoria_id`) VALUES
+(1, 'Laptop Pro X', 'Profesjonalny laptop do zadań biznesowych.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2027-01-01 00:00:00', '5000.00', '23.00', 15, 1, 'Średni', NULL, 11),
+(2, 'Telefon Ultra Max', 'Nowoczesny smartfon z dużą pamięcią.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2026-06-15 00:00:00', '3000.00', '23.00', 10, 1, 'Mały', NULL, 12),
+(3, 'Kamera Full HD', 'Kamera cyfrowa o wysokiej rozdzielczości.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2025-12-31 00:00:00', '2000.00', '23.00', 5, 1, 'Mały', NULL, 13),
+(4, 'Pralka Eco Wash', 'Pralka energooszczędna o pojemności 8kg.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2027-05-30 00:00:00', '1600.00', '23.00', 7, 1, 'Duży', NULL, 14),
+(5, 'Toster MiniMax', 'Kompaktowy toster o mocy 700W.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2026-09-01 00:00:00', '250.00', '23.00', 20, 1, 'Mały', NULL, 17),
+(6, 'Zegarek Elegance', 'Stylowy zegarek na bransolecie.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2025-08-20 00:00:00', '700.00', '23.00', 12, 1, 'Mały', NULL, 19),
+(7, 'Biurko Modern Desk', 'Nowoczesne biurko do pracy biurowej.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2026-03-01 00:00:00', '850.00', '23.00', 8, 1, 'Duży', NULL, 20),
+(8, 'Krzesło Comfort Seat', 'Wygodne krzesło do biura.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2026-07-15 00:00:00', '450.00', '23.00', 10, 1, 'Średni', NULL, 21),
+(9, 'Szafa Space Saver', 'Funkcjonalna szafa o dużej pojemności.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2027-01-01 00:00:00', '2200.00', '23.00', 3, 1, 'Duży', NULL, 22),
+(10, 'Blender Quick Mix', 'Wydajny blender o mocy 1000W.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2026-05-30 00:00:00', '350.00', '23.00', 18, 1, 'Mały', NULL, 18),
+(11, 'Lampa LED Bright', 'Lampka biurkowa z regulacją natężenia światła.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2025-12-31 00:00:00', '120.00', '23.00', 25, 1, 'Mały', NULL, 23),
+(12, 'Koc Polarowy Warmy', 'Ciepły koc z miękkiego materiału.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2027-12-31 00:00:00', '150.00', '23.00', 30, 1, 'Średni', NULL, 24),
+(13, 'Kosiarka Power Cut', 'Wydajna kosiarka elektryczna.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2026-04-15 00:00:00', '2000.00', '23.00', 5, 1, 'Duży', NULL, 10),
+(14, 'Grill Gazowy Chef Pro', 'Profesjonalny grill gazowy z trzema palnikami.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2027-06-01 00:00:00', '2800.00', '23.00', 4, 1, 'Duży', NULL, 10),
+(15, 'Rower Miejski Classic', 'Stylowy rower miejski z koszykiem.', '2025-01-08 22:31:39', '2025-01-08 22:31:39', '2026-09-20 00:00:00', '1700.00', '23.00', 9, 1, 'Duży', NULL, 5);
+--
+-- Indeksy dla zrzutów tabel
+--
+
+--
+-- Indeksy dla tabeli `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeksy dla tabeli `page_list`
+--
+ALTER TABLE `page_list`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeksy dla tabeli `produkty`
+--
+ALTER TABLE `produkty`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kategoria_id` (`kategoria_id`);
+
+--
+-- AUTO_INCREMENT dla zrzuconych tabel
+--
+
+--
+-- AUTO_INCREMENT dla tabeli `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT dla tabeli `page_list`
+--
+ALTER TABLE `page_list`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT dla tabeli `produkty`
+--
+ALTER TABLE `produkty`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- Ograniczenia dla zrzutów tabel
+--
+
+--
+-- Ograniczenia dla tabeli `produkty`
+--
+ALTER TABLE `produkty`
+  ADD CONSTRAINT `produkty_ibfk_1` FOREIGN KEY (`kategoria_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
--- Tworzenie tabeli produktów
-CREATE TABLE `produkty` (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `tytul` VARCHAR(255) NOT NULL,
-    `opis` TEXT,
-    `data_utworzenia` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `data_modyfikacji` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `data_wygasniecia` DATETIME,
-    `cena_netto` DECIMAL(10, 2) NOT NULL,
-    `podatek_vat` DECIMAL(5, 2) NOT NULL,
-    `ilosc_magazyn` INT NOT NULL,
-    `status_dostepnosci` BOOLEAN NOT NULL DEFAULT TRUE,
-    `gabaryt_produktu` VARCHAR(50),
-    `zdjecie` BLOB,
-    `kategoria_id` INT(11),
-    FOREIGN KEY (`kategoria_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
-INSERT INTO produkty (tytul, opis, data_wygasniecia, cena_netto, podatek_vat, ilosc_magazyn, status_dostepnosci, kategoria_id, gabaryt_produktu, zdjecie)
-VALUES
-('Laptop XYZ', 'Nowoczesny laptop z ekranem 15 cali.', '2025-12-31', 3500.00, 23.00, 10, TRUE, 11, 'Średni', NULL), -- Laptopy
-('Telefon ABC', 'Smartfon z dużym wyświetlaczem.', '2024-12-31', 1200.00, 23.00, 5, TRUE, 12, 'Mały', NULL), -- Smartfony
-('Pralka QWE', 'Pralka automatyczna o pojemności 7kg.', '2026-12-31', 1500.00, 23.00, 2, TRUE, 14, 'Duży', NULL), -- Pralki
-('Zegarek DEF', 'Stylowy zegarek na rękę.', '2023-06-30', 500.00, 23.00, 0, FALSE, 19, 'Mały', NULL), -- Zegarki
-('Telewizor LMN', 'Telewizor 4K z ekranem 55 cali.', '2025-01-01', 2500.00, 23.00, 8, TRUE, 1, 'Duży', NULL), -- Elektronika
-('Mikrofalówka TUV', 'Mikrofalówka o mocy 800W.', '2027-03-15', 400.00, 23.00, 15, TRUE, 15, 'Średni', NULL), -- Mikrofalówki
-('Książka XYZ', 'Bestsellerowa powieść przygodowa.', '2028-12-31', 50.00, 5.00, 50, TRUE, 4, 'Mały', NULL), -- Książki
-('Kamera UVW', 'Kamera sportowa z wodoodporną obudową.', '2024-08-20', 800.00, 23.00, 3, TRUE, 13, 'Mały', NULL), -- Kamery
-('Rower GHJ', 'Rower górski z 21 biegami.', '2025-10-10', 2000.00, 23.00, 4, TRUE, 5, 'Duży', NULL), -- Sport
-('Kurtka YTR', 'Ciepła kurtka zimowa.', '2026-02-28', 300.00, 23.00, 20, TRUE, 6, 'Średni', NULL), -- Odzież
-('Suszarka FRG', 'Suszarka do włosów o mocy 2000W.', '2026-11-30', 150.00, 23.00, 25, TRUE, 16, 'Mały', NULL), -- Suszarki
-('Toster HJK', 'Toster na dwie kromki chleba.', '2026-07-01', 120.00, 23.00, 10, TRUE, 17, 'Mały', NULL), -- Tostery
-('Biurko PLM', 'Ergonomiczne biurko z regulowaną wysokością.', '2025-09-15', 700.00, 23.00, 6, TRUE, 20, 'Duży', NULL), -- Biurka
-('Krzesło ORT', 'Krzesło biurowe z funkcją odchylania.', '2025-07-20', 400.00, 23.00, 8, TRUE, 21, 'Średni', NULL), -- Krzesła
-('Szafa IJK', 'Pojemna szafa dwudrzwiowa.', '2025-12-01', 1200.00, 23.00, 2, TRUE, 22, 'Duży', NULL), -- Szafy
-('Blender YUI', 'Blender ręczny o mocy 600W.', '2026-03-01', 200.00, 23.00, 12, TRUE, 18, 'Mały', NULL), -- Blendery
-('Zestaw naczyń LKP', '12-elementowy zestaw naczyń.', '2026-08-30', 300.00, 23.00, 7, TRUE, 8, 'Średni', NULL), -- Kuchnia
-('Koc TYN', 'Ciepły koc polarowy.', '2027-01-01', 100.00, 23.00, 30, TRUE, 24, 'Średni', NULL), -- Tekstylia
-('Lampa UHJ', 'Lampka biurkowa LED.', '2026-09-10', 150.00, 23.00, 20, TRUE, 23, 'Mały', NULL), -- Oświetlenie
-('Kosiarka WEC', 'Kosiarka spalinowa do trawy.', '2025-04-15', 2500.00, 23.00, 3, TRUE, 10, 'Duży', NULL); -- Ogród
