@@ -9,6 +9,12 @@
     Username: MS_XE2v8r@trial-neqvygmpzpdg0p7w.mlsender.net
     Password: lkJlnqTgZQOiri2h
     API: mlsn.8c5b2b67d05868b3b0e7704744d5abc1fce5aba98c1be490cfa723a5f3e5c0c6
+
+
+    prestikewivp acc
+    Username: MS_ETBWbT@trial-jy7zpl9o5d3l5vx6.mlsender.net
+    Password: kYPeIosEv5l8eXZi
+    API: 
 */
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -36,8 +42,8 @@ function UtworzMailer() {
         $phpmailer->isSMTP();
         $phpmailer->Host = 'smtp.mailersend.net';
         $phpmailer->SMTPAuth = true;
-        $phpmailer->Username = 'MS_XE2v8r@trial-neqvygmpzpdg0p7w.mlsender.net';
-        $phpmailer->Password = 'lkJlnqTgZQOiri2h';
+        $phpmailer->Username = 'MS_ETBWbT@trial-jy7zpl9o5d3l5vx6.mlsender.net';
+        $phpmailer->Password = 'kYPeIosEv5l8eXZi';
         $phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $phpmailer->Port = 587;
         $phpmailer->CharSet = 'UTF-8'; 
@@ -68,7 +74,7 @@ function WyslijMailKontakt($odbiorca) {
     }
 
     try {
-        $phpmailer->setFrom("MS_XE2v8r@trial-neqvygmpzpdg0p7w.mlsender.net", "Zespol Obslugi Klienta");
+        $phpmailer->setFrom("MS_ETBWbT@trial-jy7zpl9o5d3l5vx6.mlsender.net", "Zespol Obslugi Klienta");
         $phpmailer->addAddress($odbiorca, 'Odbiorca');
         $phpmailer->isHTML(false);
         $phpmailer->Subject = str_replace(["\r", "\n"], '', $_POST['temat']);
@@ -152,7 +158,7 @@ function PrzypomnijHaslo($email, $hasloAdmina) {
     }
 
     try {
-        $phpmailer->setFrom("MS_XE2v8r@trial-neqvygmpzpdg0p7w.mlsender.net", "System powiadomien");
+        $phpmailer->setFrom("MS_ETBWbT@trial-jy7zpl9o5d3l5vx6.mlsender.net", "System powiadomien");
         $phpmailer->addAddress($email, 'Admin');
         $phpmailer->isHTML(false);
         $phpmailer->Subject = 'Przypomnienie hasła do panelu admina';

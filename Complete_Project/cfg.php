@@ -9,7 +9,7 @@
         echo '<b>Przerwane połączenie:</b> '.mysqli_connect_error();
         exit();
     }
-
+	$link->set_charset("utf8mb4");
     // Dane logowania do panelu CMS (tymczasowo zapisane w zmiennych)
     $login = "admin";
     $pass = "123";
